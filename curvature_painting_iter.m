@@ -2,20 +2,19 @@
 %We compare the difference of the mean curvature half-density, and try to
 %recover the 2nd mesh from 1st mesh iteratively.
 
-function [V_new,eigen_f]=curvature_transfer_iter( V1, V2,F, steplength)
+function [V_new,eigen_f]=curvature_painting_iter( V,F, mchd, steplength)
 
-surf1 = build_surface(V1,F);
-surf2 = build_surface(V2,F);
+surf1 = build_surface(V,F);
+
 
 
 dirac_matrix = extrin_dirac(surf1);
 
 
-face_area1 = face_area(V1,F);
-face_area2 = face_area(V2,F);
+face_area1 = face_area(V,F);
 
 
-rho =  (surf2.face_curvature .* sqrt(face_area1) ./ sqrt(face_area2)-surf1.face_curvature)*steplength;
+rho =  (mchd .* sqrt(face_area1) -surf1.face_curvature)*steplength; 
 rho =  ( rho - sum(rho,1)/sum(face_area1,1) * face_area1);
 
 dirac_matrix = dirac_matrix -  spdiags(reshape(repmat(rho,1,4)',[],1),0,4*size(F,1),4*size(F,1));

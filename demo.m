@@ -1,3 +1,18 @@
+%% Compute Dirac eigenfunctions 
+clc;
+clear;
+
+num = 20;
+[V,F] = load_mesh('data/spot_triangulated.obj');
+
+surf1 = build_surface(V,F);
+surf1.hyperedges = surf1.hyperedges .* half_cos(surf1);
+
+dirac_matrix = intrin_dirac(surf1);
+adj_matrix = adj_vf_cov(surf1);
+
+[eigen_f,eigen_v]=dirac_eigen(surf1,dirac_matrix,adj_matrix,num);
+
 %% Create Dirac immersions
 clc;
 clear;
@@ -19,7 +34,6 @@ clc;
 
 [V1,F1] = load_mesh('data/spot_sphere.obj');
 [V2,F2] = load_mesh('data/spot_triangulated.obj');
-
 v_new = curvature_transfer(V1,V2,F1);
 shape_display(v_new,F1)
 %% Transfer the mean-curvature from V1 to V2 with several steps

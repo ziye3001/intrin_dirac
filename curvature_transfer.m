@@ -13,8 +13,7 @@ dirac_matrix = intrin_dirac(surf1);
 face_area1 = face_area(V1,F);
 face_area2 = face_area(V2,F);
 
-
-rho =  surf2.face_curvature .* sqrt(face_area1) ./ sqrt(face_area2) ;
+rho =  surf2.face_curvature .* sqrt(face_area1) ./ sqrt(face_area2); 
 
 dirac_matrix = dirac_matrix - spdiags(reshape(repmat(rho,1,4)',[],1),0,4*size(F,1),4*size(F,1));
 

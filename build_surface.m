@@ -7,7 +7,7 @@ surf_data.V= V;
 
 %use the functions from gltoolbox, create the list the neibouring face
 %through the corresponding halfedges
-[neibour_face,~] = tt(F);
+[neibour_face,~] = triangle_triangle_adjacency(F);
 
 %The following works for the mesh with boundary
 list_num_boundaries = sum(neibour_face==-1,2);
