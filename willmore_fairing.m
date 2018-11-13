@@ -24,6 +24,7 @@ adj_matrix=adj_vf(surf1);
 
 [eigen_f,~]=dirac_singular(surf1,dirac_matrix , adj_matrix, 1);
 
+eigen_f = dirac_eigen_alignment(eigen_f, vertex_area(V,F));
 V_new = spin_tf(surf1,adj_matrix*eigen_f(:,1));
 
 end

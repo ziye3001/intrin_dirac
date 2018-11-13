@@ -11,6 +11,8 @@ adj_matrix = adj_vf_cov(surf1);
 
 [eigen_f,eigen_v]=dirac_eigen(surf1,dirac_matrix,adj_matrix,2*num);
 
+eigen_f = dirac_eigen_alignment(eigen_f, vertex_area(V,F));
+
 for i= 1:num
     v_new{i} = spin_tf(surf1,adj_matrix*eigen_f(:,2*i-1));
 end
